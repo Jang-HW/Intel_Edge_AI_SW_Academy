@@ -190,7 +190,7 @@ void printImage() {
 	for (int i = 0; i < outH; i++) {
 		for (int k = 0; k < outW; k++) {
 			int px = outImage[i][k];
-			SetPixel(hdc, k + 900, i + 50, RGB(px, px, px));
+			SetPixel(hdc, k + 900, i + 80, RGB(px, px, px));
 		}
 	}
 
@@ -436,9 +436,10 @@ void backToBefore() {
 void dotImageProcessMenu() {
 	system("cls");
 	puts("\n---------------------------------------------------------------------------------");
-	puts("\n A. 밝게 하기\t\tB. 어둡게 하기\t\tC. 반전\t\t\tD. 감마변환\t\tE. 파라볼라 변환");
-	puts("\n F. 흑백(127)\t\tG. 흑백(평균값)\t\tH. 흑백(중앙값)\t\tI. 더 밝게 하기 (배수)\tJ. 더 어둡게 하기 (배수)");
-	puts("\n K. 더 밝게 하기 (배수) + 랩핑기법");
+	puts("\n 0. 동일영상 알고리즘");
+	puts("\n A. 밝게 하기\t\tB. 어둡게 하기\t\tC. 반전\t\t\tD. 감마변환");
+	puts("\n E. 파라볼라 변환\tF. 흑백(127)\t\tG. 흑백(평균값)\t\tH. 흑백(중앙값)");
+	puts("\n I. 더 밝게 하기 (배수)\tJ. 더 어둡게 하기 (배수)K. 더 밝게 하기 (배수) + 랩핑기법");
 	puts("\n L. 원형 마스크(AND)\tM. 원형 마스크(OR)\tN. 원형 마스크(XOR)\tO. NOT 반전");
 	puts("\n P. 명암 대비 스트레칭\tQ. 명암 대비 압축\tR. 포스터라이징\t\tS. 범위 강조");
 	puts("\n---------------------------------------------------------------------------------");
@@ -448,6 +449,7 @@ void dotImageProcessMenu() {
 	inKey = _getch();
 
 	switch (inKey) {
+	case '0':			equalImage();					break;
 	case 'A': case 'a':	addImage();						break;
 	case 'B': case 'b':	minusImage();					break;
 	case 'C': case 'c':	reverseImage();					break;
@@ -459,8 +461,8 @@ void dotImageProcessMenu() {
 	case 'H': case 'h': monoMidImage();					break;
 	case 'I': case 'i': multiImage();					break;
 	case 'J': case 'j': divImage();						break;
-
 	case 'K': case 'k': multiRapImage();				break;
+
 	case 'L': case 'l':	maskAndImage();					break;
 	case 'M': case 'm':	maskOrImage();					break;
 	case 'N': case 'n':	maskXorImage();					break;
@@ -521,8 +523,8 @@ void histAndAreaProcessMenu() {
 	puts("\n A. 히스토 스트레칭\tB. 엔드인\t\tC. 히스토그램 평활화");
 	puts("\n---------------------------------------------------------------------------------");
 	puts("\n D. 엠보싱\t\tE. 블러링(3 x 3)\tF. 블러링(N x N)");
-	puts("\n G. 가우시안 스무딩\tH. 샤프닝 1\t\tI. 샤프닝 2\t\tJ. 세로 엣지 마스크");
-	puts("\n K. 유사 연산자");
+	puts("\n G. 가우시안 스무딩\tH. 샤프닝 1\t\tI. 샤프닝 2");
+	puts("\n J. 세로 엣지 마스크\tK. 유사 연산자");
 	puts("\n---------------------------------------------------------------------------------");
 
 	char inKey = 0;
@@ -719,6 +721,7 @@ void paraImage() {
 		}
 	}
 	printImage();
+	_getch();
 
 	printf("- CUP효과 \n");
 	for (int i = 0; i < inH; i++) {
@@ -743,7 +746,6 @@ void monoAvgImage() {
 		}
 	}
 	cMid = cMid / (inH * inW);
-	printf("평균값: %d\n", cMid);
 
 	for (int i = 0; i < inH; i++) {
 		for (int k = 0; k < inW; k++) {
@@ -753,6 +755,7 @@ void monoAvgImage() {
 		}
 	}
 	printImage();
+	printf("평균값: %d\n", cMid);
 }
 
 void monoMidImage() {
@@ -780,7 +783,6 @@ void monoMidImage() {
 
 	// 알고리즘 찾아서 채우기 
 	// quick sort result
-	printf("중앙값: %d\n", cMid);
 
 	for (int i = 0; i < inH; i++) {
 		for (int k = 0; k < inW; k++) {
@@ -790,6 +792,7 @@ void monoMidImage() {
 		}
 	}
 	printImage();
+	printf("중앙값: %d\n", cMid);
 }
 
 void multiRapImage() {
@@ -937,8 +940,8 @@ void areaStressImage() {
 	for (int i = 0; i < inH; i++) {
 		for (int k = 0; k < inW; k++) {
 			if (inImage[i][k] < 75)			outImage[i][k] = inImage[i][k];
-			else if (inImage[i][k] > 175)		outImage[i][k] = inImage[i][k];
-			else 						outImage[i][k] = 255;
+			else if (inImage[i][k] > 175)	outImage[i][k] = inImage[i][k];
+			else 							outImage[i][k] = 255;
 		}
 	}
 	printImage();
@@ -1287,7 +1290,8 @@ void moveHorizon() {
 	// 입력 배열 --> 출력 배열
 	for (int i = 0; i < inH; i++) {
 		for (int k = 0; k < inW; k++) {
-			if (k + val < 0 & k + val >= outH)	break;
+			if (k + val >= outW)	break;
+			if (k + val < 0)		break;
 			outImage[i][k + val] = inImage[i][k];
 		}
 	}
@@ -1303,9 +1307,9 @@ void mirror() {
 	// 입력 배열 --> 출력 배열
 	for (int i = 0; i < inH; i++) {
 		for (int k = 0; k < inW; k++) {
-			outImage[i][k] = inImage[i][k];
-			outImage[2 * inH - i - 1][k] = inImage[i][k];
-			outImage[i][2 * inW - k - 1] = inImage[i][k];
+										outImage[i][k] = inImage[i][k];
+						  outImage[2 * inH - i - 1][k] = inImage[i][k];
+						  outImage[i][2 * inW - k - 1] = inImage[i][k];
 			outImage[2 * inH - i - 1][2 * inW - k - 1] = inImage[i][k];
 		}
 	}
@@ -1498,7 +1502,9 @@ void emboss() {
 	///////////////////
    // 화소 영역처리 //
   ///////////////////
-	double mask[3][3] = { {-1.0, 0.0, 0.0}, {0.0, 0.0, 0.0},{0.0, 0.0, 1.0} };
+	double mask[3][3] = { {-1.0, 0.0, 0.0}, 
+						   {0.0, 0.0, 0.0},
+						   {0.0, 0.0, 1.0} };
 
 	// 임시메모리 할당(실수형으로)
 	double** tmpInImage = mallocDoubleMemory(inH + 2, inW + 2);
@@ -1563,7 +1569,9 @@ void blur() {
 	///////////////////
    // 화소 영역처리 //
   ///////////////////
-	double mask[3][3] = { {1.0 / 9, 1.0 / 9, 1.0 / 9}, {1.0 / 9, 1.0 / 9, 1.0 / 9},{1.0 / 9, 1.0 / 9, 1.0 / 9} };
+	double mask[3][3] = { {1.0 / 9, 1.0 / 9, 1.0 / 9}, 
+						  {1.0 / 9, 1.0 / 9, 1.0 / 9},
+						  {1.0 / 9, 1.0 / 9, 1.0 / 9} };
 
 	// 임시메모리 할당(실수형으로)
 	double** tmpInImage = mallocDoubleMemory(inH + 2, inW + 2);
@@ -1619,7 +1627,7 @@ void blur() {
 	printImage();
 }
 
-// 화소 영역처리 - 엠보싱 
+// 화소 영역처리 - 가우시안
 void gausinaSmooth() {
 	freeOutputMemory();						// 메모리 해제
 	outH = inH;		outW = inW;				// (중요!!) 출력 이미지의 크기 결정 (알고리즘에 의존적)
@@ -1628,7 +1636,9 @@ void gausinaSmooth() {
 	///////////////////
    // 화소 영역처리 //
   ///////////////////
-	double mask[3][3] = { {1. / 16 ,1. / 8, 1. / 16}, {1. / 8 ,1. / 4, 1. / 8},{1. / 16 ,1. / 8, 1. / 16} };
+	double mask[3][3] = { {1. / 16 ,1. / 8, 1. / 16}, 
+						  {1. / 8 , 1. / 4, 1. / 8},
+						  {1. / 16 ,1. / 8, 1. / 16} };
 
 	// 임시메모리 할당(실수형으로)
 	double** tmpInImage = mallocDoubleMemory(inH + 2, inW + 2);
@@ -1693,7 +1703,9 @@ void sharf1() {
 	///////////////////
    // 화소 영역처리 //
   ///////////////////
-	double mask[3][3] = { {-1., -1., -1.}, {-1., 9 ,-1.},{-1., -1., -1.} };
+	double mask[3][3] = { {-1., -1., -1.}, 
+						  {-1.,  9 , -1.},
+						  {-1., -1., -1.} };
 
 	// 임시메모리 할당(실수형으로)
 	double** tmpInImage = mallocDoubleMemory(inH + 2, inW + 2);
@@ -1758,7 +1770,9 @@ void sharf2() {
 	///////////////////
    // 화소 영역처리 //
   ///////////////////
-	double mask[3][3] = { {0., -1., 0.}, {-1., 5 ,-1.},{0., -1., 0.} };
+	double mask[3][3] = { {0., -1., 0.}, 
+						  {-1., 5 ,-1.},
+						  {0., -1., 0.} };
 
 	// 임시메모리 할당(실수형으로)
 	double** tmpInImage = mallocDoubleMemory(inH + 2, inW + 2);
@@ -1900,7 +1914,9 @@ void edge1() {
    // 화소 영역처리 //
   ///////////////////
 	// 수직 엣지 검출 마스크
-	double mask[3][3] = { {0., 0., 0.}, {-1., 1 ,0.},{0., 0., 0.} };
+	double mask[3][3] = { {0., 0., 0.}, 
+						  {-1., 1 ,0.},
+						  {0., 0., 0.} };
 
 	// 임시메모리 할당(실수형으로)
 	double** tmpInImage = mallocDoubleMemory(inH + 2, inW + 2);
