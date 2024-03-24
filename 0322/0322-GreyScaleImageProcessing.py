@@ -454,7 +454,8 @@ def notImage():
     for i in range(inH):
         for k in range(inW):
             val = ~inImage[i][k]
-            if (val < 0): val = abs(val % 255)
+            if (val < 0):
+                val = abs(val % 255)
             outImage[i][k] = val
     displayImage()
 
@@ -1083,7 +1084,7 @@ def gausinaSmooth():
                 outImage[i][k] = int(tmpOutImage[i][k])
     displayImage()
 
-# 샤프닝 1
+# 샤프닝
 def sharf1():
     global window, canvas, paper, fullName
     global inImage, outImage, inH, inW, outH, outW
@@ -1135,8 +1136,6 @@ def sharf1():
             else:
                 outImage[i][k] = int(tmpOutImage[i][k])
     displayImage()
-
-# 샤프닝 2
 def sharf2():
     global window, canvas, paper, fullName
     global inImage, outImage, inH, inW, outH, outW
@@ -1200,10 +1199,6 @@ def simular():
     outImage = malloc2D(outH, outW)
 
     ########## 영상처리 ##########
-    mask = [[0., -1., 0.],
-            [-1., 5, -1.],
-            [0., -1., 0.]]
-
     ## 임시메모리 할당(실수형으로)
     tmpInImage = malloc2D(inH + 2, inW + 2, 127)
     tmpOutImage = malloc2D(outH, outW)
