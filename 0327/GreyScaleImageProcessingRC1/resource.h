@@ -1,0 +1,127 @@
+﻿//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++에서 생성한 포함 파일입니다.
+// GreyScaleImageProcessingBeta1.rc에서 사용되고 있습니다.
+//
+#define IDD_CONSTANT2                   1
+#define IDOK2                           4
+#define IDD_ABOUTBOX                    100
+#define IDP_OLE_INIT_FAILED             100
+#define IDR_MAINFRAME                   128
+#define IDR_GreyScaleImageProcessingBeta1TYPE 130
+#define IDD_FILTER                      314
+#define IDC_EDIT_CONSTANT               1001
+#define IDC_STATIC_ASK                  1002
+#define IDC_EDIT1                       1023
+#define IDC_EDIT2                       1031
+#define IDC_EDIT3                       1034
+#define IDC_EDIT4                       1035
+#define IDC_EDIT5                       1036
+#define IDC_EDIT6                       1037
+#define IDC_EDIT7                       1038
+#define IDC_EDIT8                       1039
+#define IDC_EDIT9                       1040
+#define ID_32771                        32771
+#define ID_EQUAL_IMAGE                  32772
+#define IDM_EQUAL_IMAGE                 32773
+#define ID_32774                        32774
+#define ID_32775                        32775
+#define ID_32776                        32776
+#define ID_32777                        32777
+#define ID_32778                        32778
+#define ID_32779                        32779
+#define ID_32780                        32780
+#define ID_32781                        32781
+#define ID_32782                        32782
+#define ID_32783                        32783
+#define ID_32784                        32784
+#define ID_32785                        32785
+#define ID_32786                        32786
+#define ID_32787                        32787
+#define ID_32788                        32788
+#define ID_32789                        32789
+#define ID_32790                        32790
+#define ID_32791                        32791
+#define ID_32792                        32792
+#define ID_32793                        32793
+#define ID_32794                        32794
+#define ID_32795                        32795
+#define ID_32796                        32796
+#define ID_32797                        32797
+#define ID_32798                        32798
+#define IDE_LIGHT_CHANGE                32799
+#define IDM_REVERSE_IMAGE               32800
+#define IDE_LIGHT_IMAGE                 32801
+#define IDM_LIGHT_IMAGE                 32802
+#define IDM_GAMMA_IMAGE                 32803
+#define IDM_CAP_IMAGE                   32804
+#define IDE_CUP_IMAGE                   32805
+#define IDD_CONSTANT                    32805
+#define ID_MONO127_IMAGE                32806
+#define IDM_MONO127_IMAGE               32807
+#define IDM_CUP_IMAGE                   32808
+#define IDM_MONO_MID_IMAGE              32809
+#define IDM_MONO_127_IMAGE              32810
+#define IDM_MONO_AVG_IMAGE              32811
+#define IDM_MASK_AND                    32812
+#define IDM_MONO_127                    32813
+#define IDM_MONO_MID                    32814
+#define IDM_MONO_AVG                    32815
+#define IDM_MASK_OR                     32816
+#define IDM_MASK_XOR                    32817
+#define IDM_NOT_IMAGE                   32818
+#define IDM_STRACTING_IMAGE             32819
+#define IDM_ZIP_IMAGE                   32820
+#define IDM_POSTER_IMAGE                32821
+#define IDM_AREA_IMPACT                 32822
+#define ID_32823                        32823
+#define ID_32824                        32824
+#define IDM_ADD_IMAGE                   32825
+#define ID_32826                        32826
+#define ID_32827                        32827
+#define ID_32828                        32828
+#define ID_32829                        32829
+#define ID_32830                        32830
+#define ID_32831                        32831
+#define ID_32832                        32832
+#define ID_32833                        32833
+#define ID_32834                        32834
+#define ID_32835                        32835
+#define ID_32836                        32836
+#define ID_32837                        32837
+#define ID_32838                        32838
+#define IDM_ZOOMIN                      32839
+#define IDM_ZOOMOUT                     32840
+#define IDM_ROTATE_ORIGIN               32841
+#define IDM_ROTATE_NO_CUT               32842
+#define IDM_MOVE_VERTICAL               32843
+#define IDM_MOVE_HORIZONAL              32844
+#define IDM_MIRROR_VERTICAL             32845
+#define IDM_MIRROR_HORIZONAL            32846
+#define IDM_MORPH                       32847
+#define IDM_ZOOM_IN                     32848
+#define IDM_ZOOM_OUT                    32849
+#define ID_32850                        32850
+#define ID_32851                        32851
+#define ID_32852                        32852
+#define ID_32853                        32853
+#define ID_32854                        32854
+#define ID_32855                        32855
+#define IDM_HISTO_STRACTCH              32856
+#define IDM_HISTO_STRECTCH              32857
+#define IDM_END_IN                      32858
+#define IDM_32855                       32859
+#define IDM_HISTO_FLATTEN               32860
+#define IDM_EMBOSS                      32861
+#define IDM_BLUR                        32862
+#define IDM_WANT_FILTER                 32863
+
+// Next default values for new objects
+// 
+#ifdef APSTUDIO_INVOKED
+#ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_NEXT_RESOURCE_VALUE        316
+#define _APS_NEXT_COMMAND_VALUE         32864
+#define _APS_NEXT_CONTROL_VALUE         1024
+#define _APS_NEXT_SYMED_VALUE           310
+#endif
+#endif

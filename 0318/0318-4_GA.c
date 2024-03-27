@@ -1002,7 +1002,7 @@ void zoomOut2() {
 
 	for (int i = 0; i < outH; i++) {
 		for (int k = 0; k < outW; k++) {
-			outImage[i][k] = (int)(tmp[i][k] / scale);
+			outImage[i][k] = (int)(tmp[i][k] / (scale * scale));
 		}
 	}
 
@@ -1010,12 +1010,6 @@ void zoomOut2() {
 		free(tmp[i]);
 	free(tmp);
 
-	// 임시 배열 --> 출력 배열
-	for (int i = 0; i < inH; i++) {
-		for (int k = 0; k < inW; k++) {
-			outImage[(int)(i / scale)][(int)(k / scale)] = inImage[i][k];
-		}
-	}
 	printImage();
 }
 
@@ -1225,14 +1219,35 @@ void rotate3() {
 	freeOutputMemory();
 
 	int degree = getIntValue();
-	degree %= 360;
+	if (degree > 360) {
+		degree %= 360;
+	}
+	else if (degree < 0) {
+		degree = abs(degree);
+		degree %= 360;
+		degree = 360 - degree;
+	}
 	double radian = degree * 3.1415925386 / 180.0;
 	// xd = cos*xs - sin*ys
 	// yd = sin*xs + cos*ys
 
 	// (중요!!) 출력 이미지의 크기 결정 (알고리즘에 의존적)
-	outH = (int)((double)inW * sin(radian) + inH * cos(radian));
-	outW = (int)((double)inW * cos(radian) + inH * sin(radian));
+	if (degree < 90) {
+		outH = (int)((double)inW * sin(radian) + inH * cos(radian));
+		outW = (int)((double)inW * cos(radian) + inH * sin(radian));
+	}
+	else if (degree < 180) {
+		outH = (int)((double)inW * sin(radian) + inH * -cos(radian));
+		outW = (int)((double)inW * -cos(radian) + inH * sin(radian));
+	}
+	else if (degree < 270) {
+		outH = (int)((double)inW * -sin(radian) + inH * -cos(radian));
+		outW = (int)((double)inW * -cos(radian) + inH * -sin(radian));
+	}
+	else {
+		outH = (int)((double)inW * -sin(radian) + inH * cos(radian));
+		outW = (int)((double)inW * cos(radian) + inH * -sin(radian));
+	}
 	mallocOutputMemory();	
 
 	int cx = inH / 2;
@@ -1290,8 +1305,7 @@ void moveHorizon() {
 	// 입력 배열 --> 출력 배열
 	for (int i = 0; i < inH; i++) {
 		for (int k = 0; k < inW; k++) {
-			if (k + val >= outW)	break;
-			if (k + val < 0)		break;
+			if (k + val >= outW || k + val < 0)		continue;
 			outImage[i][k + val] = inImage[i][k];
 		}
 	}
