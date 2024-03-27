@@ -11,13 +11,13 @@ private :
 
 	/// 클래스의 기능(=행동=행위)
 public : // 게터/세터
-	inline void setRadius(int radius) { this->radius = radius; };
-	inline int getRadius() { return radius; };
+	Circle(int);
+	~Circle() { numOfCircles--; }
+	void setRadius(int radius) { this->radius = radius; };
+	int getRadius() { return radius; };
 	static int getNumOfCircles() { return numOfCircles; }
 
 public :
-	Circle(int);
-	~Circle() { numOfCircles--; }
 	double getArea() ;
 };
 Circle::Circle(int radius = 1) { 
@@ -27,6 +27,8 @@ Circle::Circle(int radius = 1) {
 double Circle::getArea() {
 	return radius * radius * 3.14;
 }
+
+int Circle::numOfCircles = 0;
 
 
 int main() {
