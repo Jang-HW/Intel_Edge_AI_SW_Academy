@@ -193,8 +193,10 @@ BOOL CColorImageProcessingDoc::OnOpenDocument(LPCTSTR lpszPathName)
 BOOL CColorImageProcessingDoc::OnSaveDocument(LPCTSTR lpszPathName)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
-	if (m_outImageR == NULL)
+	if (m_outImageR == NULL)	{
+		MessageBox(NULL, L"이미지를 편집하고 저장해주세요.", L"저장 실패", NULL);
 		return FALSE;
+	}
 
 	CImage image;
 	image.Create(m_outW, m_outH, 32);
@@ -212,7 +214,10 @@ BOOL CColorImageProcessingDoc::OnSaveDocument(LPCTSTR lpszPathName)
 			image.SetPixel(k, i, px);
 		}
 	image.Save(lpszPathName, Gdiplus::ImageFormatPNG);
-	MessageBox(NULL, L"저장", L"성공", NULL);
+	CString saveMessage;
+	saveMessage.Format(_T("%s"), lpszPathName);
+	saveMessage += L"으로 저장하였습니다.";
+	MessageBox(NULL, saveMessage, L"저장 성공", NULL);
 
 	return TRUE;
 }
@@ -1563,8 +1568,8 @@ void CColorImageProcessingDoc::OnRotateOrigin()
 			int xd = i;
 			int yd = k;
 
-			int	xs = (int)(cos(radian) * (xd - cx) + sin(radian) * (yd - cx));
-			int ys = (int)(-sin(radian) * (xd - cy) + cos(radian) * (yd - cy));
+			int	xs = (int)(cos(radian) * (xd - (m_outH / 2)) + sin(radian) * (yd - (m_outW / 2)));
+			int ys = (int)(-sin(radian) * (xd - (m_outH / 2)) + cos(radian) * (yd - (m_outW / 2)));
 			xs += cx;
 			ys += cy;
 
@@ -1831,17 +1836,33 @@ void CColorImageProcessingDoc::OnMorph()
 	if (scale < 2)		scale = 2;
 	if (scale > 100)	scale = 100;
 
+	int R, G, B;
 	for (int n = 0; n < scale; n++) {
 		for (int i = 0; i < m_inH; i++) {
 			for (int k = 0; k < m_inW; k++) {
-				m_outImageR[i][k] = m_outImageG[i][k] = m_outImageB[i][k] = 255;
+				m_outImageR[i][k] = (unsigned char)(((double)(scale - 1) - n) / (scale - 1) * m_inImageR[i][k]);
+				m_outImageG[i][k] = (unsigned char)(((double)(scale - 1) - n) / (scale - 1) * m_inImageG[i][k]);
+				m_outImageB[i][k] = (unsigned char)(((double)(scale - 1) - n) / (scale - 1) * m_inImageB[i][k]);
 			}
 		}
 		for (int i = 0; i < m_inH; i++) {
+			if (i >= maskH)		continue;
 			for (int k = 0; k < m_inW; k++) {
-				m_outImageR[i][k] = (unsigned char)(((double)scale - n) / scale * m_inImageR[i][k] + ((double)n / scale) * maskR[i][k]);
-				m_outImageG[i][k] = (unsigned char)(((double)scale - n) / scale * m_inImageG[i][k] + ((double)n / scale) * maskG[i][k]);
-				m_outImageB[i][k] = (unsigned char)(((double)scale - n) / scale * m_inImageB[i][k] + ((double)n / scale) * maskB[i][k]);
+				if (k >= maskW)		break;
+				R = (unsigned char)(((double)(scale - 1) - n) / (scale - 1) * m_inImageR[i][k] + ((double)n / (scale - 1)) * maskR[i][k]);
+				if (R <= 255 && R >= 0)			m_outImageR[i][k] = R;
+				else if(R>255)					m_outImageR[i][k] = 255;
+				else							m_outImageR[i][k] = 0;
+
+				G = (unsigned char)(((double)(scale - 1) - n) / (scale - 1) * m_inImageG[i][k] + ((double)n / (scale - 1)) * maskG[i][k]);
+				if (G <= 255 && G >= 0)			m_outImageG[i][k] = G;
+				else if (G > 255)				m_outImageG[i][k] = 255;
+				else							m_outImageG[i][k] = 0;
+
+				B = (unsigned char)(((double)(scale - 1) - n) / (scale - 1) * m_inImageB[i][k] + ((double)n / (scale - 1)) * maskB[i][k]);
+				if (B <= 255 && B >= 0)			m_outImageB[i][k] = B;
+				else if (B > 255)				m_outImageB[i][k] = 255;
+				else							m_outImageB[i][k] = 0;
 			}
 		}
 		pView->OnInvalidate();
