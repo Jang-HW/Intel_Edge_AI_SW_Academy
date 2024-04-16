@@ -40,7 +40,7 @@ typedef  struct __attribute__((packed)){
 
 
 #ifdef __cplusplus
-etern "C"{
+extern "C" {
 #endif
 
 
