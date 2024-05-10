@@ -1,0 +1,5 @@
+https://universe.roboflow.com/browse/smoking
+- 흡연 금지 구역에서 흡연 장면이 목격되면 "이곳은 흡연 금지구역입니다"라고 말하는 장치
+
+https://www.kaggle.com/datasets/viephunguyenvan/vehicle-classification-vietnam/data
+- 차량 주변의 오토바이를 인지해 알려주는 LED 장치 > 블박은 앵글 제한? 추가 카메라?
