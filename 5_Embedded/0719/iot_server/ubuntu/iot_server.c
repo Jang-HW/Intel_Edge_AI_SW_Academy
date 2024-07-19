@@ -59,8 +59,8 @@ int main(int argc, char *argv[])
 		char *pArray[ARR_CNT]={0};
 		char msg[BUF_SIZE];
 
-		CLIENT_INFO client_info[MAX_CLNT] = {{0,-1,"","JHW_SQL","PASSWD"}, \
-				{0,-1,"","JHW_UBT","PASSWD"},  {0,-1,"","JHW_ARD","PASSWD"}, \
+		CLIENT_INFO client_info[MAX_CLNT] = {{0,-1,"","1","PASSWD"}, \
+				{0,-1,"","2","PASSWD"},  {0,-1,"","3","PASSWD"}, \
 				{0,-1,"","4","PASSWD"},  {0,-1,"","5","PASSWD"}, \
 				{0,-1,"","6","PASSWD"},  {0,-1,"","7","PASSWD"}, \
 				{0,-1,"","8","PASSWD"},  {0,-1,"","9","PASSWD"}, \
