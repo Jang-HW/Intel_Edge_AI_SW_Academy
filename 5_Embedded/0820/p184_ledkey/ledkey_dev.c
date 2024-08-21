@@ -24,9 +24,6 @@ static void gpioKeyFree(void);
 static int gpioLed[] = {6,7,8,9,10,11,12,13 };
 static int gpioKey[] = {16,17,18,19,20,21,22,23};
 
-static long ret_led = 0;
-static long ret_key = 0;
-
 static int call_open(struct inode *inode, struct file *filp)
 {
 		int num = MINOR(inode->i_rdev);
@@ -45,10 +42,10 @@ static loff_t call_llseek(struct file *filp, loff_t off, int whence)
 
 static ssize_t call_read(struct file *filp, char *buf, size_t count, loff_t *f_pos)
 {
-
-		ret_key = gpioKeyGet();
-		*buf = (char)ret_key;
-		printk("key : %#04lX\n", ret_key);
+		long result;
+		result = gpioKeyGet();
+		*buf = (char)result;
+		printk("key : %#04lX\n", result);
 
 		printk("call read -> buf : %08X, count : %08X \n", (unsigned int)buf, count);
 		return 0x33;
@@ -167,31 +164,32 @@ static void gpioKeyFree(void)
 
 struct file_operations call_fops = 
 {
-		.owner	 	= THIS_MODULE, 
-		.llseek		= call_llseek, 
-		.read		= call_read, 
-		.write		= call_write, 
-		.unlocked_ioctl = call_iotctl, 
-		.open		= call_open, 
-		.release	= call_release, 
+	.owner	 	= THIS_MODULE, 
+	.llseek		= call_llseek, 
+	.read		= call_read, 
+	.write		= call_write, 
+	.unlocked_ioctl = call_iotctl, 
+	.open		= call_open, 
+	.release	= call_release, 
 };
 
 static int call_init(void)
 {
-		int result;
+	int result;
 
-		ret_led = gpioKeyInit();
-		if(ret_led < 0)
-				return ret_led;
+	result = gpioKeyInit();
+	if(result < 0)
+		return result;
 
-		ret_key = gpioLedInit();
-		if(ret_key < 0)
-				return ret_key;
+	result = gpioLedInit();
+	if(result < 0)
+		return result;
 
-		printk("call call_init \n");
-		result = register_chrdev(CALL_DEV_MAJOR, CALL_DEV_NAME, &call_fops);
-		if(result < 0) return result;
-		return 0;
+	printk("call call_init \n");
+	result = register_chrdev(CALL_DEV_MAJOR, CALL_DEV_NAME, &call_fops);
+	if(result < 0) return result;
+
+	return 0;
 }
 
 static void call_exit(void)

@@ -9,11 +9,9 @@
 
 int main(void)
 {
-	int i, val;
     int dev;
 //  char buff[128];
     char buff;
-	char data_old=0;
     int ret;
     printf("1) device file open\n");
 
@@ -36,34 +34,11 @@ int main(void)
 */
         do{
             ret = read(dev, &buff, sizeof(buff));
-
-			if(buff != data_old)
-			{
-					if(buff != 0)
-					{
-							data_old = buff;
-        		    		write(dev,&buff,sizeof(buff));
-				            printf("key : %#04x\n\n", buff);
-
-							val = buff;
-							puts("0:1:2:3:4:5:6:7");
-							for(i=0;i<8;i++)
-							{
-									if(buff & (0x01 << i))
-											putchar('O');
-									else
-											putchar('X');
-									if(i != 7 )
-											putchar(':');
-									else
-											putchar('\n');
-							}
-					}
-					if(buff == 0x80)
-							break;
-			}
+            printf("key : %#04x\n", buff);
+            write(dev,&buff,sizeof(buff));
+            if(buff==0x80)
+                break;
             usleep(10000);
-
         }while(1);
 
         printf("5) ioctl function call\n");
