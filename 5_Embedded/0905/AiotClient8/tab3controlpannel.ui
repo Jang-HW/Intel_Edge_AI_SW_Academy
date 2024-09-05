@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Tab3ControlPannel</class>
+ <widget class="QWidget" name="Tab3ControlPannel">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>566</width>
+    <height>367</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout_2">
+   <item row="0" column="1">
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>547</width>
+        <height>344</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="Image.qrc">:/Image/Image/room1.png</pixmap>
+         </property>
+        </widget>
+       </item>
+      </layout>
+      <widget class="QPushButton" name="pPBLamp">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>60</y>
+         <width>82</width>
+         <height>76</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="Image.qrc">
+         <normaloff>:/Image/Image/light_off.png</normaloff>:/Image/Image/light_off.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>70</width>
+         <height>70</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pPBplug">
+       <property name="geometry">
+        <rect>
+         <x>440</x>
+         <y>230</y>
+         <width>82</width>
+         <height>76</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="Image.qrc">
+         <normaloff>:/Image/Image/plug_off.png</normaloff>:/Image/Image/plug_off.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>70</width>
+         <height>70</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <zorder>label</zorder>
+      <zorder>pPBLamp</zorder>
+      <zorder>pPBplug</zorder>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="Image.qrc"/>
+ </resources>
+ <connections/>
+</ui>
